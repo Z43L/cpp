@@ -26,7 +26,6 @@ public:
   void setsecret(std::string secrets);
   void setnumber(int numbers);
   void print();
-  void deleteall();
 };
 
 #endif // CPP_CONTACT_H

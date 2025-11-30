@@ -16,4 +16,3 @@ void Contact::print() {
   std::cout << "nickname: " << this->nickname << " | ";
   std::cout << "secret: " << this->secret.substr(0, 10) << " | " << std::endl;
 }
-void Contact::deleteall() { delete this; }

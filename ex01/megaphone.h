@@ -9,7 +9,7 @@
 
 class megaphone {
 private:
-  Contact contact[8];
+  Contact *contact[8];
 
 public:
   megaphone();

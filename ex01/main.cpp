@@ -5,27 +5,39 @@
 #include <limits>
 #include <string>
 
-megaphone::megaphone() {}
-megaphone::~megaphone() {}
+megaphone::megaphone() {
+  for (int i = 0; i < 8; i++)
+    this->contact[i] = NULL;
+}
+megaphone::~megaphone() {
+  for (int i = 0; i < 8; i++) {
+    if (this->contact[i])
+      delete this->contact[i];
+  }
+}
 
 void megaphone::deletecontact(void) {
   for (int i = 0; i < 8; i++) {
-    contact[i].deleteall();
+    if (this->contact[i]) {
+      delete this->contact[i];
+      this->contact[i] = NULL;
+    }
   }
 }
 void megaphone::add(void) {
   for (int i = 0; i < 8; i++) {
-    if (contact[i].getname() == "") {
+    if (this->contact[i] == NULL) {
+      this->contact[i] = new Contact();
       std::string name;
       std::string nickname;
       std::string secret;
       int number;
       std::cout << "enter name: ";
       std::cin >> name;
-      contact[i].setname(name);
+      this->contact[i]->setname(name);
       std::cout << "enter nickname: ";
       std::cin >> nickname;
-      contact[i].setnickname(nickname);
+      this->contact[i]->setnickname(nickname);
       std::cout << "enter secret: ";
       while (!(std::cin >> secret)) {
         std::cin.clear();
@@ -33,7 +45,7 @@ void megaphone::add(void) {
         std::cout << "to your home\n";
         std::cout << "enter secret: ";
       }
-      contact[i].setsecret(secret);
+      this->contact[i]->setsecret(secret);
       std::cout << "enter number: ";
       while (!(std::cin >> number)) {
         std::cin.clear();
@@ -41,7 +53,7 @@ void megaphone::add(void) {
         std::cout << "invalid number\n";
         std::cout << "enter number: ";
       }
-      contact[i].setnumber(number);
+      this->contact[i]->setnumber(number);
       std::cout << "contact added\n";
       return;
     }
@@ -52,14 +64,15 @@ void megaphone::add(void) {
 void megaphone::searh(std::string name) {
   if (name == "*") {
     for (int i = 0; i < 8; i++) {
-      contact[i].print();
+      if (this->contact[i])
+        this->contact[i]->print();
     }
     std::system("sleep 5");
     return;
   }
   for (int i = 0; i < 8; i++) {
-    if (contact[i].getname() == name) {
-      contact[i].print();
+    if (this->contact[i] && this->contact[i]->getname() == name) {
+      this->contact[i]->print();
       std::system("sleep 5");
       return;
     }
