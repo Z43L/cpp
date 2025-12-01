@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   contact.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: davmoren <davmoren@student.42urduliz.co    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/01 08:46:20 by davmoren          #+#    #+#             */
+/*   Updated: 2025/12/01 08:46:21 by davmoren         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 //
 // Created by david on 14/11/25.
 //
@@ -6,7 +18,9 @@
 #define CPP_CONTACT_H
 #include <iostream>
 #include <string>
-
+#include <iomanip>
+#include <iomanip>
+#include <sstream>
 class Contact {
 private:
   int number;
