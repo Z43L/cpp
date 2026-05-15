@@ -1,8 +1,8 @@
-#ifndef FORM_HPP
-#define FORM_HPP
-#include "Bureaucrat.hpp"
+#ifndef ROBOTOMYREQUESTFORM_HPP
+#define ROBOTOMYREQUESTFORM_HPP
+#include "AForm.hpp"
 
-class Form {
+class Robotomyrequestform: AForm {
 private:
   const std::string name;
   bool isSingned;
@@ -31,13 +31,16 @@ public:
   };
 
 
-  Form(std::string name, bool isSigned, int gradeToSing, int gradeToExecute);
-  Form(const Form &other);
-  Form operator=(const Form &other);
-  ~Form();
+  Robotomyrequestform(std::string name, bool isSigned, int gradeToSing, int gradeToExecute);
+  Robotomyrequestform(const AForm &other);
+  Robotomyrequestform operator=(const AForm &other);
+  ~Robotomyrequestform();
   void beSigned(Bureaucrat &Burocrat);
   void singForm(Bureaucrat &Burocrat);
+  void execute(Bureaucrat const & executor) const;
 };
 
-inline std::ostream &operator<<(std::ostream &os, const Form &form);
+inline std::ostream &operator<<(std::ostream &os, const AForm &form);
+
+
 #endif
