@@ -1,5 +1,5 @@
 #include "Form.hpp"
-
+#include "Bureaucrat.hpp"
 Form::Form(std::string name, bool isSigned, int gradeToSing, int gradeToExecute)
     : name(name), isSingned(isSigned), gradeToSing(gradeToSing),
       gradeToExecute(gradeToExecute) {
@@ -23,21 +23,15 @@ Form Form::operator=(const Form &other) {
 }
 Form::~Form() {}
 
+std::string Form::getName() { return this->name; }
 void Form::beSigned(Bureaucrat &burocrat) {
-   try{
-        Form::singForm(burocrat);
-        std::cout << burocrat.getName()<< " is singned " << this->name << std::endl; 
+  try {
+    burocrat.signForm(*this);
+    std::cout << burocrat.getName() << " is singned " << this->name
+              << std::endl;
 
-   }catch(const std::exception &e){
-        std::cerr << burocrat.getName() << " couldn’t sign " << this->name  << " "<< e.what() << std::endl; 
-   }
-   
-}
-
-void Form::singForm(Bureaucrat &Burocrat) {
-    if(this->gradeToSing > Burocrat.getGrade() )    
-    {
-        throw Form::FormTooLowPermisionException();
-    }
-    
+  } catch (const std::exception &e) {
+    std::cerr << burocrat.getName() << " couldn’t sign " << this->name << " "
+              << e.what() << std::endl;
+  }
 }

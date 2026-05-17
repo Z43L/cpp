@@ -1,5 +1,8 @@
+#include "AForm.hpp"
 #include "Bureaucrat.hpp"
-#include "Form.hpp"
+#include "PresidentialPardonForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "ShrubberyCreationForm.hpp"
 int main() {
   try {
     Bureaucrat a("uno", 4);
@@ -31,21 +34,37 @@ int main() {
     std::cout << normal.getName() << " has created whit rank"
               << normal.getGrade() << std::endl;
     std::cout << "Burócrata creado con éxito." << std::endl;
-    Form sing("sig", false, 150, 140);
+    RobotomyRequestForm sing("sig");
+    sing.execute(normal);
 
     sing.beSigned(normal);
     normal.decrement();
-    
+
   } catch (const std::exception &e) {
     std::cerr << "Error modificating: " << e.what() << std::endl;
   }
   try {
-       Bureaucrat normal("Fry", 50);
-        Form sing("sig", false, 130, 140);
-      sing.singForm(normal);
+    Bureaucrat normal("Fry", 5);
+    PresidentialPardonForm sing("sig");
+    sing.beSigned(normal);
+    sing.execute(normal);
+    RobotomyRequestForm sing1("sig");
+    sing1.beSigned(normal);
+    sing1.execute(normal);
+    ShrubberyCreationForm presidential("presidential");
+    presidential.beSigned(normal);
+    presidential.execute(normal);
+  } catch (const std::exception &e) {
+    std::cerr << "error modificating:" << e.what() << std::endl;
   }
-  catch (const std::exception &e) {
-      std::cerr << "error modificating:" << e.what() << std::endl;
+  try {
+    Bureaucrat afo("afo", 50);
+
+    ShrubberyCreationForm presidential("presidential");
+    afo.signForm(presidential);
+    presidential.execute(afo);
+  } catch (const std::exception &e) {
+    std::cerr << "error modificating:" << e.what() << std::endl;
   }
 
   return 0;

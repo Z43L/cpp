@@ -1,7 +1,11 @@
 #ifndef FORM_HPP
 #define FORM_HPP
-#include "Bureaucrat.hpp"
 
+#include <exception>
+#include <iostream>
+#include <ostream>
+#include <string.h>
+class Bureaucrat;
 class Form {
 private:
   const std::string name;
@@ -30,13 +34,13 @@ public:
     }
   };
 
-
   Form(std::string name, bool isSigned, int gradeToSing, int gradeToExecute);
   Form(const Form &other);
   Form operator=(const Form &other);
   ~Form();
   void beSigned(Bureaucrat &Burocrat);
-  void singForm(Bureaucrat &Burocrat);
+  void setName(std::string name);
+  std::string getName();
 };
 
 inline std::ostream &operator<<(std::ostream &os, const Form &form);

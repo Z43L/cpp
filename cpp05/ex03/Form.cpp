@@ -26,12 +26,8 @@ Form::~Form() {}
 std::string Form::getName() { return this->name; }
 void Form::beSigned(Bureaucrat &burocrat) {
   try {
-    burocrat.signForm(*this);
-    std::cout << burocrat.getName() << " is singned " << this->name
-              << std::endl;
-
-  } catch (const std::exception &e) {
-    std::cerr << burocrat.getName() << " couldn’t sign " << this->name << " "
-              << e.what() << std::endl;
+    std::cout << burocrat.getName() << " signed " << this->getName() << std::endl;
+  } catch (std::exception const &e) {
+    std::cout << burocrat.getName() << " couldn’t sign " << this->getName() << std::endl;
   }
 }

@@ -4,7 +4,7 @@
 #include <exception>
 #include <iostream>
 #include <ostream>
-#include <string.h>
+#include <string>
 class AForm;
 class Bureaucrat {
 protected:
@@ -30,12 +30,10 @@ public:
   Bureaucrat &operator=(const Bureaucrat &other);
   ~Bureaucrat();
   void signForm(AForm &form);
-
+  void executeForm(AForm const &form) const;
   std::string getName() const;
   int getGrade() const;
   int decrement();
-  void setName(std::string name);
-  std::string getName();
 };
 
 #endif

@@ -42,7 +42,7 @@ int main() {
   try {
        Bureaucrat normal("Fry", 50);
         Form sing("sig", false, 130, 140);
-      sing.singForm(normal);
+      sing.signForm(normal);
   }
   catch (const std::exception &e) {
       std::cerr << "error modificating:" << e.what() << std::endl;

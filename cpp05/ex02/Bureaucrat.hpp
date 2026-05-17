@@ -1,11 +1,11 @@
 #ifndef BUREAUCRAT_HPP
 #define BUREAUCRAT_HPP
-
+#pragma once
 #include <exception>
 #include <iostream>
 #include <ostream>
 #include <string.h>
-
+class AForm;
 class Bureaucrat {
 protected:
   const std::string name;
@@ -29,10 +29,13 @@ public:
   Bureaucrat(const Bureaucrat &other);
   Bureaucrat &operator=(const Bureaucrat &other);
   ~Bureaucrat();
+  void signForm(AForm &form);
 
   std::string getName() const;
   int getGrade() const;
   int decrement();
+  void setName(std::string name);
+  std::string getName();
 };
 
 #endif

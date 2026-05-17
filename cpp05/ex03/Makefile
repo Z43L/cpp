@@ -4,7 +4,7 @@ CXXFLAGS = -std=c++98 -Wall -Wextra -Werror
 LDFLAGS =
 
 # Fuentes y objetivos
-SOURCES = main.cpp Bureaucrat.cpp PresidentialPardonForm.cpp RobotomyRequestForm.cpp ShrubberyCreationForm.cpp AForm.cpp
+SOURCES = main.cpp Bureaucrat.cpp PresidentialPardonForm.cpp RobotomyRequestForm.cpp ShrubberyCreationForm.cpp AForm.cpp Intern.cpp
 OBJECTS = $(SOURCES:.cpp=.o) 
 EXECUTABLE = bureaucrat
 

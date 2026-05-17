@@ -43,14 +43,7 @@ std::ostream &operator<<(std::ostream &os, const AForm &form) {
 }
 
 void AForm::beSigned(Bureaucrat &burocrat) {
-  try {
-    burocrat.signForm(*this);
-    this->_isSigned = true;
-    std::cout << burocrat.getName() << " is singned " << this->_name
-              << std::endl;
-
-  } catch (const std::exception &e) {
-    std::cerr << burocrat.getName() << " couldn’t sign " << this->_name << " "
-              << e.what() << std::endl;
-  }
+  if (burocrat.getGrade() > _gradeToSign)
+    throw AForm::FormTooLowException();
+  _isSigned = true;
 }

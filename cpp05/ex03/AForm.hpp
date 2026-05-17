@@ -42,7 +42,6 @@ public:
   int getGradeToSign() const;
   int getGradeToExecute() const;
   void beSigned(Bureaucrat &burocrat);
-  void beSigned(const Bureaucrat &bureaucrat);
   virtual void execute(Bureaucrat const &executor) const = 0;
 };
 
