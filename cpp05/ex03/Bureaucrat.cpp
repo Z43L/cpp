@@ -42,9 +42,19 @@ std::string Bureaucrat::getName() const { return this->name; }
 
 int Bureaucrat::getGrade() const { return this->grade; }
 
-int Bureaucrat::decrement() {
-  if (grade >= 150)
+int Bureaucrat::increment() {
+  if (grade <= 0)
     throw GradeTooLowException();
+  if (grade > 149)
+    throw GradeTooHighException();
+  this->grade += 1;
+  return this->grade;
+}
+int Bureaucrat::decrement() {
+  if (grade <= 0)
+    throw GradeTooLowException();
+  if (grade > 150)
+    throw GradeTooHighException();
   this->grade += 1;
   return this->grade;
 }

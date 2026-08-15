@@ -4,7 +4,9 @@ Form::Form(std::string name, bool isSigned, int gradeToSing, int gradeToExecute)
     : name(name), isSingned(isSigned), gradeToSing(gradeToSing),
       gradeToExecute(gradeToExecute) {
   if (gradeToExecute > 150 || gradeToSing > 150)
-    throw Bureaucrat::GradeTooLowException();
+    throw Form::FormTooLowPermisionException();
+  if (gradeToExecute <= 0 || gradeToSing <= 0)
+    throw Form::FormTooHighException();
 }
 
 Form::Form(const Form &other)
@@ -24,14 +26,8 @@ Form Form::operator=(const Form &other) {
 Form::~Form() {}
 
 std::string Form::getName() { return this->name; }
-void Form::beSigned(Bureaucrat &burocrat) {
-  try {
-    burocrat.signForm(*this);
-    std::cout << burocrat.getName() << " is singned " << this->name
-              << std::endl;
-
-  } catch (const std::exception &e) {
-    std::cerr << burocrat.getName() << " couldn’t sign " << this->name << " "
-              << e.what() << std::endl;
-  }
+void Form::beSigned( Bureaucrat &b) {
+  if (b.getGrade() > this->gradeToSing)
+    throw Form::FormTooLowPermisionException();
+  this->isSingned = true;
 }

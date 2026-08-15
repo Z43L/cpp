@@ -29,6 +29,7 @@ public:
   Bureaucrat(const Bureaucrat &other);
   Bureaucrat &operator=(const Bureaucrat &other);
   ~Bureaucrat();
+  int increment();
   void signForm(AForm &form);
   void executeForm(AForm const &form) const;
   std::string getName() const;

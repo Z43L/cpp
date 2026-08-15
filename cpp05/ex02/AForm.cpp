@@ -42,15 +42,11 @@ std::ostream &operator<<(std::ostream &os, const AForm &form) {
   return os;
 }
 
-void AForm::beSigned(Bureaucrat &burocrat) {
-  try {
-    burocrat.signForm(*this);
+void AForm::beSigned(Bureaucrat &burocrat) 
+{
+  
     this->_isSigned = true;
     std::cout << burocrat.getName() << " is singned " << this->_name
               << std::endl;
-
-  } catch (const std::exception &e) {
-    std::cerr << burocrat.getName() << " couldn’t sign " << this->_name << " "
-              << e.what() << std::endl;
-  }
+  
 }

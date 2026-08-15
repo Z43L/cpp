@@ -5,7 +5,7 @@
 #include <iostream>
 #include <ostream>
 #include <string.h>
-class AForm;
+class Form;
 class Bureaucrat {
 protected:
   const std::string name;
@@ -29,8 +29,8 @@ public:
   Bureaucrat(const Bureaucrat &other);
   Bureaucrat &operator=(const Bureaucrat &other);
   ~Bureaucrat();
-  void signForm(AForm &form);
-
+  void signForm(Form &form);
+  int increment();
   std::string getName() const;
   int getGrade() const;
   int decrement();

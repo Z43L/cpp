@@ -33,6 +33,7 @@ public:
 
   std::string getName() const;
   int getGrade() const;
+  int increment();
   int decrement();
   void setName(std::string name);
   std::string getName();

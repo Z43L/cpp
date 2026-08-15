@@ -32,8 +32,16 @@ int Bureaucrat::getGrade() { return this->grade; }
 
 std::string Bureaucrat::getName() { return this->name; }
 
-int Bureaucrat::decrement() {
+int Bureaucrat::increment() {
   if (grade <= 0)
+    throw GradeTooLowException();
+  if (grade > 149)
+    throw GradeTooHighException();
+  this->grade -= 1;
+  return this->grade;
+}
+int Bureaucrat::decrement() {
+  if (grade <= 1)
     throw GradeTooLowException();
   if (grade > 150)
     throw GradeTooHighException();

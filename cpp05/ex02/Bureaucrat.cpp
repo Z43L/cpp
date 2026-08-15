@@ -27,6 +27,7 @@ Bureaucrat &Bureaucrat::operator=(const Bureaucrat &other) {
 }
 void Bureaucrat::signForm(AForm &form) {
   try {
+    form.beSigned(*this);
     std::cout << this->getName() << " signed " << form.getName() << std::endl;
   } catch (std::exception const &e) {
     std::cout << this->name << " couldn’t sign " << form.getName() << std::endl;
@@ -39,6 +40,14 @@ std::string Bureaucrat::getName() const { return this->name; }
 
 int Bureaucrat::getGrade() const { return this->grade; }
 
+int Bureaucrat::increment() {
+  if (grade <= 0)
+    throw GradeTooLowException();
+  if (grade > 149)
+    throw GradeTooHighException();
+  this->grade -= 1;
+  return this->grade;
+}
 int Bureaucrat::decrement() {
   if (grade <= 0)
     throw GradeTooLowException();
@@ -47,3 +56,4 @@ int Bureaucrat::decrement() {
   this->grade += 1;
   return this->grade;
 }
+

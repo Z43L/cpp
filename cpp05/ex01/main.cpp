@@ -31,7 +31,7 @@ int main() {
     std::cout << normal.getName() << " has created whit rank"
               << normal.getGrade() << std::endl;
     std::cout << "Burócrata creado con éxito." << std::endl;
-    Form sing("sig", false, 150, 140);
+    Form sing("sig", false, 140, 140);
 
     sing.beSigned(normal);
     normal.decrement();
@@ -41,8 +41,8 @@ int main() {
   }
   try {
        Bureaucrat normal("Fry", 50);
-        Form sing("sig", false, 130, 140);
-      sing.signForm(normal);
+       Form sing("sig", false, 130, 140);
+       normal.signForm(sing);
   }
   catch (const std::exception &e) {
       std::cerr << "error modificating:" << e.what() << std::endl;
