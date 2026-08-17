@@ -1,4 +1,4 @@
-NAME= ex01
+NAME= ex02
 SRC = *.cpp
 OBJ = $(SRC:.cpp=.o)
 FLG = -Wextra -Wall -Werror -std=c++98
