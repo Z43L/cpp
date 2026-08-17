@@ -4,7 +4,7 @@ int main(int argc, char **argv)
 {
 	if (argc == 2)
 	{
-		ScalarConverter::converter(argv[1]);
+		ScalarConverter::convert(argv[1]);
 		return 0;
 	}
 
@@ -13,7 +13,7 @@ int main(int argc, char **argv)
 		for (int i = 1; i < argc; ++i)
 		{
 			std::cout << "=== Test " << i << ": " << argv[i] << " ===" << std::endl;
-			ScalarConverter::converter(argv[i]);
+			ScalarConverter::convert(argv[i]);
 			if (i + 1 < argc)
 				std::cout << std::endl;
 		}
@@ -25,7 +25,7 @@ int main(int argc, char **argv)
 	for (int i = 0; i < argc ; ++i)
 	{
 		std::cout << "=== Test " << (i + 1) << ": " << argv[i] << " ===" << std::endl;
-		ScalarConverter::converter(argv[i]);
+		ScalarConverter::convert(argv[i]);
 		if (i + 1 < argc)
 			std::cout << std::endl;
 	}

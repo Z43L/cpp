@@ -1,93 +1,47 @@
 #include "ScalarConverter.hpp"
+#include <cerrno>
+#include <cmath>
+#include <cstdlib>
+#include <limits>
+#include <iomanip>
 
-
-/* 
-static bool isPrintableChar(const std::string &literal){
-    if(literal.length() == 1 )
-    {
-        int c = static_cast<char>(literal[0]);
-        if(c <= 127 && c >= 1)
-        {
-            std::cout<< "char: " << c<<std::endl;
-            return true;
-        }
-        else{
-            std::cout << "char: impossible\n";
-        }
-    }
-    return false;
-} */
-
-static char isNumberPrintableChar(const std::string &literal){
-    double num = std::strtod(literal.c_str(), NULL);
-    if(num < 127 && num >= 0)
-        {
-            char c = static_cast<char>(num);
-            //std::cout<< "char: " << c  <<std::endl;
-            return c;
-        }
-    if((num > 127 && num <=0 )||(literal.length() == 1 && std::isdigit(literal[0])))
-        std::cout << "char: impossible\n";
-    return false;;
+static bool parse(const std::string &s, double &value) {
+    std::string number = s;
+    if (!number.empty() && number[number.size() - 1] == 'f') number.erase(number.size() - 1);
+    char *end = NULL;
+    errno = 0;
+    value = std::strtod(number.c_str(), &end);
+    return end != number.c_str() && *end == '\0';
 }
 
-/* static double whatDouble(const std::string &literal){
-    double num = std::strtod(literal.c_str(), NULL);
-    return num;
-} */
-
-static int isNumber(const std::string &literal){
-
-    double num = std::strtod(literal.c_str(), NULL);
-    int numInt = std::atoi(literal.c_str());
-    //int len = literal.length();
-    if(literal.length() == 1 && !std::isdigit(literal[0])){
-        num = static_cast<int>(literal[0]);
-        numInt= static_cast<int>(literal[0]);
-    }
-    std::cout<< "float: "<< std::fixed << std::setprecision(1) << num << 'f' << std::endl;
-    
-    std::cout << "double: "<< std::fixed << std::setprecision(1) << num << std::endl;
-    std::cout<< "int: " << numInt << std::endl;
-    return numInt;
-}
-
-static void whatType(const std::string &literal){
-    
-    int num =  isNumber(literal);
-    char c = isNumberPrintableChar(literal);
-    
-    if(literal.length() == 1 && !std::isdigit(literal[0]))
-        std::cout << "char: " << literal[0]<< std::endl;
-    else if(num <= 127 && num >=1)
-        std::cout << "char: " <<c << std::endl;
-    else if(num >= 127|| num <=1 || isdigit(literal[0]))
-        std::cout << "char: impossible\n";
-}
-
-void ScalarConverter::converter(const std::string &literal){
-
-    if (literal == "nan" || literal == "nanf") {
-        std::cout << "char: impossible" << std::endl;
-        std::cout << "int: impossible" << std::endl;
-        std::cout << "float: nanf" << std::endl;
-        std::cout << "double: nan" << std::endl;
+void ScalarConverter::convert(const std::string &literal) {
+    bool special = literal == "nan" || literal == "nanf" || literal == "+inf" ||
+                   literal == "+inff" || literal == "-inf" || literal == "-inff";
+    double value = 0.0;
+    if (!special && !parse(literal, value)) {
+        std::cout << "char: impossible\nint: impossible\nfloat: impossible\ndouble: impossible" << std::endl;
         return;
     }
-    if (literal == "inf" || literal == "inff" || literal == "+inf" || literal == "+inff") {
-        std::cout << "char: impossible" << std::endl;
-        std::cout << "int: impossible" << std::endl;
-        std::cout << "float: inff" << std::endl;
-        std::cout << "double: inf" << std::endl;
-        return;
+    if (special) {
+        if (literal == "nan" || literal == "nanf") value = std::numeric_limits<double>::quiet_NaN();
+        else value = literal[0] == '-' ? -std::numeric_limits<double>::infinity() : std::numeric_limits<double>::infinity();
     }
-    if (literal == "-inf" || literal == "-inff") {
-        std::cout << "char: impossible" << std::endl;
-        std::cout << "int: impossible" << std::endl;
-        std::cout << "float: -inff" << std::endl;
-        std::cout << "double: -inf" << std::endl;
-        return;
+    bool finite = !std::isnan(value) && !std::isinf(value);
+    bool intRange = finite && value >= std::numeric_limits<int>::min() && value <= std::numeric_limits<int>::max();
+    bool charRange = finite && value >= 0 && value <= 127;
+    if (!charRange) std::cout << "char: impossible" << std::endl;
+    else if (value < 32) std::cout << "char: Non displayable" << std::endl;
+    else std::cout << "char: '" << static_cast<char>(value) << "'" << std::endl;
+    if (!intRange) std::cout << "int: impossible" << std::endl;
+    else std::cout << "int: " << static_cast<int>(value) << std::endl;
+    if (std::isnan(value)) std::cout << "float: nanf\ndouble: nan" << std::endl;
+    else if (std::isinf(value)) {
+        std::cout << "float: " << (value < 0 ? "-inff" : "inff") << std::endl;
+        std::cout << "double: " << (value < 0 ? "-inf" : "inf") << std::endl;
+    } else {
+        std::cout << "float: " << std::fixed << std::setprecision(1)
+                  << static_cast<float>(value) << "f" << std::endl;
+        std::cout << "double: " << std::fixed << std::setprecision(1)
+                  << value << std::endl;
     }
-    whatType(literal);
-
 }

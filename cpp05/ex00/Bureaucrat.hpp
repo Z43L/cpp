@@ -3,7 +3,7 @@
 
 #include <exception>
 #include <iostream>
-#include <string.h>
+#include <string>
 
 class Bureaucrat {
 private:
@@ -26,12 +26,14 @@ public:
   };
   Bureaucrat(std::string name, int grade);
   Bureaucrat(const Bureaucrat &other);
-  Bureaucrat operator=(const Bureaucrat &other);
+  Bureaucrat &operator=(const Bureaucrat &other);
   ~Bureaucrat();
   int increment();
-  std::string getName();
-  int getGrade();
+  std::string getName() const;
+  int getGrade() const;
   int decrement();
 };
+
+std::ostream &operator<<(std::ostream &os, const Bureaucrat &bureaucrat);
 
 #endif

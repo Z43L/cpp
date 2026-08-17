@@ -5,12 +5,12 @@
 int main() {
     Data miData;
     miData.id = 42;
-    miData.nombre = "Objeto de Prueba";
+    miData.name = "Objeto de Prueba";
     miData.nivel = 99.9f;
 
     std::cout << "--- ESTADO INICIAL ---" << std::endl;
     std::cout << "Dirección original de miData : " << &miData << std::endl;
-    std::cout << "Contenido: ID=" << miData.id << ", Nombre=" << miData.nombre << "\n\n";
+    std::cout << "Contenido: ID=" << miData.id << ", Nombre=" << miData.name << "\n\n";
 
     uintptr_t raw_ptr = Serializer::serialize(&miData);
     
@@ -26,7 +26,7 @@ int main() {
     if (puntero_recuperado == &miData) {
         std::cout << "[ÉXITO] ¡Los punteros coinciden!" << std::endl;
         std::cout << "Datos recuperados: ID=" << puntero_recuperado->id 
-                  << ", Nombre=" << puntero_recuperado->nombre << std::endl;
+                  << ", Nombre=" << puntero_recuperado->name << std::endl;
     } else {
         std::cout << "[ERROR] Los punteros no son iguales." << std::endl;
     }

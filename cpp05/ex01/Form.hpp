@@ -4,7 +4,7 @@
 #include <exception>
 #include <iostream>
 #include <ostream>
-#include <string.h>
+#include <string>
 class Bureaucrat;
 class Form {
 private:
@@ -36,12 +36,15 @@ public:
 
   Form(std::string name, bool isSigned, int gradeToSing, int gradeToExecute);
   Form(const Form &other);
-  Form operator=(const Form &other);
+  Form &operator=(const Form &other);
   ~Form();
   void beSigned(Bureaucrat &Burocrat);
   void setName(std::string name);
-  std::string getName();
+  std::string getName() const;
+  bool getIsSigned() const;
+  int getGradeToSign() const;
+  int getGradeToExecute() const;
 };
 
-inline std::ostream &operator<<(std::ostream &os, const Form &form);
+std::ostream &operator<<(std::ostream &os, const Form &form);
 #endif

@@ -17,7 +17,7 @@ Form::Form(const Form &other)
   }
 }
 
-Form Form::operator=(const Form &other) {
+Form &Form::operator=(const Form &other) {
   if (this->isSingned != other.isSingned) {
     this->isSingned = other.isSingned;
   }
@@ -25,9 +25,20 @@ Form Form::operator=(const Form &other) {
 }
 Form::~Form() {}
 
-std::string Form::getName() { return this->name; }
+std::string Form::getName() const { return this->name; }
+bool Form::getIsSigned() const { return this->isSingned; }
+int Form::getGradeToSign() const { return this->gradeToSing; }
+int Form::getGradeToExecute() const { return this->gradeToExecute; }
 void Form::beSigned( Bureaucrat &b) {
   if (b.getGrade() > this->gradeToSing)
     throw Form::FormTooLowPermisionException();
   this->isSingned = true;
+}
+
+std::ostream &operator<<(std::ostream &os, const Form &form) {
+  os << "Form " << form.getName() << ", signed: "
+     << (form.getIsSigned() ? "yes" : "no")
+     << ", grade required to sign: " << form.getGradeToSign()
+     << ", grade required to execute: " << form.getGradeToExecute();
+  return os;
 }

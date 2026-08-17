@@ -33,6 +33,15 @@ void Bureaucrat::signForm(AForm &form) {
     std::cout << this->name << " couldn’t sign " << form.getName() << std::endl;
   }
 }
+void Bureaucrat::executeForm(AForm const &form) const {
+  try {
+    form.execute(*this);
+    std::cout << name << " executed " << form.getName() << std::endl;
+  } catch (const std::exception &e) {
+    std::cout << name << " couldn't execute " << form.getName()
+              << " because " << e.what() << std::endl;
+  }
+}
 std::string Bureaucrat::getName() { return this->name; }
 Bureaucrat::~Bureaucrat() {};
 
@@ -41,19 +50,14 @@ std::string Bureaucrat::getName() const { return this->name; }
 int Bureaucrat::getGrade() const { return this->grade; }
 
 int Bureaucrat::increment() {
-  if (grade <= 0)
-    throw GradeTooLowException();
-  if (grade > 149)
+  if (grade <= 1)
     throw GradeTooHighException();
   this->grade -= 1;
   return this->grade;
 }
 int Bureaucrat::decrement() {
-  if (grade <= 0)
+  if (grade >= 150)
     throw GradeTooLowException();
-  if (grade > 150)
-    throw GradeTooHighException();
   this->grade += 1;
   return this->grade;
 }
-

@@ -1,5 +1,5 @@
 NAME= ex02
-SRC = *.cpp
+SRC = main.cpp
 OBJ = $(SRC:.cpp=.o)
 FLG = -Wextra -Wall -Werror -std=c++98
 

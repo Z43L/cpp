@@ -8,9 +8,9 @@
 
 struct Data{
     int id;
-    std::string string;
+    std::string name;
     float nivel;    
-}
+};
 
 
 
