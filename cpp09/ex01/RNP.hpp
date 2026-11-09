@@ -14,8 +14,11 @@ class rnp{
         ~rnp();
         int operar(int a, int b, char token);
         std::stack<int> pila;
+        int parse(char *input);
+        bool istoken(char c);
+
         
-}
+};
 
 
 
